@@ -1,10 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+// Define user type separately for reuse
+interface User {
+  id: string;
+  email: string;
+}
+
+// Define auth state
 interface AuthState {
-  user: null | { id: string; email: string };
+  user: User | null;
   token: string | null;
 }
 
+// Initial state
 const initialState: AuthState = {
   user: null,
   token: null,
@@ -14,7 +22,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<{ user: any; token: string }>) => {
+    login: (state, action: PayloadAction<{ user: User; token: string }>) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
     },
